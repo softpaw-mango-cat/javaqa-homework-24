@@ -2,6 +2,7 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 import ru.netology.data.DataHelper;
 
@@ -26,6 +27,17 @@ public class LoginPage {
         loginField.setValue(info.getLogin());
         passwordField.setValue(info.getPassword());
         loginButton.click();
+    }
+
+    public void loginWithInvalidPassword(DataHelper.AuthInfo info) {
+        loginField.setValue(info.getLogin());
+        passwordField.setValue(DataHelper.generateRandomPassword());
+        loginButton.click();
+    }
+
+    public void clearFields() {
+        loginField.press(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
+        passwordField.press(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
     }
 
     public void verifyErrorNotification(String expectedText) {

@@ -21,7 +21,7 @@ public class DataHelper {
         return FAKER.name().username();
     }
 
-    private static String generateRandomPassword() {
+    public static String generateRandomPassword() {
         return FAKER.internet().password();
     }
 

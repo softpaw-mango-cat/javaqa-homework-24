@@ -2,7 +2,6 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -28,9 +27,5 @@ public class VerificationPage {
     public void verify(String verificationCode) {
         codeField.setValue(verificationCode);
         verifyButton.click();
-    }
-
-    public void clearCodeField() {
-        codeField.press(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
     }
 }

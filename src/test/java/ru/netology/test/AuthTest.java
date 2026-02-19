@@ -60,25 +60,21 @@ public class AuthTest {
 
     // проверка блокировки при трёхкратном логине с неправильным кодом
     @Test
-    @DisplayName("shouldBlockValidUserWithIncorrectCodeThreeTimes")
-    void shouldBlockValidUserWithIncorrectCodeThreeTimes() {
-        // залогинили пользователя
-        var verificationPage = loginPage.validLogin(authInfo);
-        // ввод кодов и очистка поля - 3 раза
-        verificationPage.verify(DataHelper.generateRandomCode().getCode());
-        verificationPage.verifyErrorNotification("Ошибка! \nНеверно указан код! Попробуйте ещё раз.");
-        verificationPage.clearCodeField();
-
-        verificationPage.verify(DataHelper.generateRandomCode().getCode());
-        verificationPage.verifyErrorNotification("Ошибка! \nНеверно указан код! Попробуйте ещё раз.");
-        verificationPage.clearCodeField();
-
-        verificationPage.verify(DataHelper.generateRandomCode().getCode());
-        verificationPage.verifyErrorNotification("Ошибка! \nНеверно указан код! Попробуйте ещё раз.");
-        verificationPage.clearCodeField();
+    @DisplayName("Should Block Valid User With Incorrect Password Three Times")
+    void shouldBlockValidUserWithIncorrectPasswordThreeTimes() {
+        // логин с неверным паролем три раза
+        invalidLogin();
+        invalidLogin();
+        invalidLogin();
 
         // проверка статуса пользователя
         var actualUserStatus = SQLHelper.getUserStatus(authInfo);
         Assertions.assertEquals("blocked", actualUserStatus);
+    }
+
+    private void invalidLogin() {
+        loginPage.loginWithInvalidPassword(authInfo);
+        loginPage.verifyErrorNotification("Ошибка! \nНеверно указан логин или пароль");
+        loginPage.clearFields();
     }
 }
