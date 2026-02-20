@@ -19,19 +19,13 @@ public class LoginPage {
     private SelenideElement errorNotification;
 
     public VerificationPage validLogin(DataHelper.AuthInfo info) {
-        login(info);
+        login(info.getLogin(), info.getPassword());
         return page(VerificationPage.class);
     }
 
-    public void login(DataHelper.AuthInfo info) {
-        loginField.setValue(info.getLogin());
-        passwordField.setValue(info.getPassword());
-        loginButton.click();
-    }
-
-    public void loginWithInvalidPassword(DataHelper.AuthInfo info) {
-        loginField.setValue(info.getLogin());
-        passwordField.setValue(DataHelper.generateRandomPassword());
+    public void login(String login, String password) {
+        loginField.setValue(login);
+        passwordField.setValue(password);
         loginButton.click();
     }
 

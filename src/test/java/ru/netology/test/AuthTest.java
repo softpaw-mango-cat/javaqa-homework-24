@@ -43,8 +43,9 @@ public class AuthTest {
     @Test
     @DisplayName("Should Get Error If User Non Existent")
     void shouldGetErrorIfUserNonExistent() {
-        var randomInfo = DataHelper.generateRandomUser();
-        loginPage.login(randomInfo);
+        var randomLogin = DataHelper.generateRandomLogin();
+        var randomPassword = DataHelper.generateRandomPassword();
+        loginPage.login(randomLogin, randomPassword);
         loginPage.verifyErrorNotification("Ошибка! \nНеверно указан логин или пароль");
     }
 
@@ -73,7 +74,7 @@ public class AuthTest {
     }
 
     private void invalidLogin() {
-        loginPage.loginWithInvalidPassword(authInfo);
+        loginPage.login(authInfo.getLogin(), DataHelper.generateRandomPassword());
         loginPage.verifyErrorNotification("Ошибка! \nНеверно указан логин или пароль");
         loginPage.clearFields();
     }

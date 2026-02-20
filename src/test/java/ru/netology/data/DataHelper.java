@@ -17,7 +17,7 @@ public class DataHelper {
         return new AuthInfo("vasya", "qwerty123");
     }
 
-    private static String generateRandomLogin() {
+    public static String generateRandomLogin() {
         return FAKER.name().username();
     }
 
